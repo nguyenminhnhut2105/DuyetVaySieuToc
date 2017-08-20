@@ -1,0 +1,68 @@
+﻿@using DuyetVaySieuToc.Models.DataModel;
+@model NGUOIDUNG
+@{
+    ViewBag.Title = "Thông tin tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/Layout/_LayoutAdmin.cshtml";
+    string url = Request.Url.PathAndQuery;
+    NGUOIDUNG tv = (NGUOIDUNG)Session["taiKhoan"];
+}
+@using (Html.BeginForm("UpdateMember", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" class="form-control" name="TAIKHOAN" value="@tv.TAIKHOAN" id="matkhau">
+        <input type="hidden" class="form-control" name="KICHHOAT" value="@tv.KICHHOAT" id="matkhau">
+        <input type="hidden" class="form-control" name="MATKHAU" value="@tv.MATKHAU" id="matkhau">
+        <input type="hidden" name="MALOAIND" value="@tv.MALOAIND" />
+        <input type="hidden" name="MALOAIND" value="@tv.TAIKHOAN" />
+        <input type="hidden" name="MAND" value="@tv.MAND" />
+        <input type="hidden" name="url" value="@url" />
+        <div class="form-group">
+            <h4>Họ tên :</h4>
+            <input type="text" class="form-control" name="HOTEN" value="@tv.HOTEN" id="matkhau">
+            </div>
+   
+        <div class="form-group">
+            <h4>Số điện thoại :</h4>
+            <input type="text" class="form-control" name="SDT" id="matkhau" value="@tv.SDT">
+
+        </div>
+        <div class="form-group">
+            <h4>Địa chỉ :</h4>
+            <input type="text" class="form-control" name="DIACHI" id="matkhau" value="@tv.DIACHI">
+
+        </div>
+        <input type="hidden" name="url" value="@url" />
+        <div class="form-group">
+            <h4>Ngày sinh :</h4>
+            <input type="text" class="form-control" name="NGAYSINH" id="NGAYSINH" value="@tv.NGAYSINH">
+        </div>
+        <div class="form-group">
+            <h4>Email:</h4>
+            <input type="text" class="form-control" name="EMAIL" id="nhaplaimatkhau" value="@tv.EMAIL">
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu thay đổi" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+        $(document).ready(function ()
+        {
+            $("#ngaysinhab").datepicker();
+
+
+        })
+
+</script>
+
+

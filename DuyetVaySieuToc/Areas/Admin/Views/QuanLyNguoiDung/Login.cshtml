@@ -1,0 +1,533 @@
+﻿@using  DuyetVaySieuToc.Models.DataModel;
+
+
+@{
+    string url = Request.Url.PathAndQuery;
+    NGUOIDUNG tv = (NGUOIDUNG)Session["taiKhoan"];
+}
+
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<link href="~/scripts/jquery-ui.css" rel="stylesheet" />
+<script src="~/scripts/jquery-ui.js"></script>
+<script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content modal-info">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body modal-spa">
+                <div class="login-grids">
+                    <div class="login">
+                        <div class="login-bottom">
+                            <h3>Đăng ký tài khoản</h3>
+                            @using (Html.BeginForm("Singup", "Home", FormMethod.Post))
+                            {
+                                <div class="sign-up">
+                                    <h4>Tên đăng nhập :</h4>
+                                    <input type="text" name="TAIKHOAN" id="tendangnhap" placeholder="Nhập tên đăng nhập">
+                                </div>
+                                <div class="sign-up">
+                                    <h4>Mật khẩu :</h4>
+                                    <input type="password" name="MATKHAU" id="matkhau" placeholder="Nhập mật khẩu">
+
+                                </div>
+                                <div class="sign-up">
+                                    <h4>Nhập Lại mật khẩu :</h4>
+                                    <input type="password" id="nhaplaimatkhau" placeholder="Nhập lại mật khẩu">
+                                </div>
+                                <div class="sign-up">
+                                    <h4>Họ tên:</h4>
+                                    <input type="text" name="HOTEN" id="HOTEN" placeholder="Nhập họ tên">
+
+                                </div>
+                                <div class="sign-up">
+                                    <h4>Email:</h4>
+                                    <input type="text" name="EMAIL" id="EMAIL" placeholder="Nhập Email">
+
+                                </div>
+                                <div class="sign-up">
+                                    <h4>Địa chỉ:</h4>
+                                    <input type="text" name="DIACHI" id="DIACHI" placeholder="Nhập địa chỉ">
+
+                                </div>
+                                <input type="hidden" name="url" value="@url" />
+
+                                <div class="sign-up">
+                                    <input type="submit" class="btn btn-success" value="Đăng ký" id="dangky">
+                                </div>
+
+                            }
+                            <script>
+                                $(document).ready(function () {
+                                    $('#dangky').click(function () {
+                                        tendangnhap = $('#tendangnhap').val();
+                                        matkhau = $('#matkhau').val();
+                                        HOTEN = $('#HOTEN').val();
+                                        email = $('#EMAIL').val();
+                                        diachi = $('#DIACHI').val();
+                                        nhaplaimatkhau = $('#nhaplaimatkhau').val();
+                                        loi = 0;
+                                        if (tendangnhap == "" || matkhau == "" || HOTEN == "" || email == "" || diachi == "") {
+                                            loi++;
+                                            $('#thongbao').text("Hãy nhập đầy đủ thông tin");
+                                        }
+                                        if (matkhau != nhaplaimatkhau) {
+                                            loi++;
+                                            $('#thongbao').text("Mật khẩu không trùng khớp");
+                                        }
+                                        if (tendangnhap.length < 6) {
+                                            loi++;
+                                            $('#thongbao').text("Tên đăng nhập phải lớn hơn 6 ký tự");
+                                        }
+                                        if (loi != 0) {
+                                            return false;
+                                        }
+                                    });
+
+                                });
+                            </script>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <p style="color:red" id="thongbao"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal5" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 style="text-align:center;" class="modal-title">Đăng nhập</h4><br />
+                <p style="text-align:center;color:red" id="thongbaodn"></p>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>Tài khoản</h5>
+                        <input type="text" class="form-control" placeholder="Tên đăng nhập" id="dn_tendangnhap" name="username" required maxlength="20">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>Mật khẩu</h5>
+                        <input type="password" class="form-control" placeholder="Nhập mật khẩu" id="dn_matkhau" name="password" required min="6" max="30">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <input type="hidden" name="url" value="@url" />
+                <input type="submit" style="width:100%;" class="btn btn-success phongrass" value="Đăng nhập" id="dangnhap"><br /><br />
+                <p style="float:left">Bạn chưa có tài khoản ?</p> <a href="#" id="clickdathang"><strong style="color:red;">Đăng ký ngay</strong></a>
+
+            </div>
+
+        </div>
+        <script>
+                    $(document).ready(function () {
+                        $('#dn_matkhau,#dn_tendangnhap').keypress(function (e)
+                        {
+                            var key = e.which;
+                            if (key == 13) {
+                                var dn_tendangnhap = $('#dn_tendangnhap').val();
+                                var dn_matkhau = $('#dn_matkhau').val();
+
+                                var loi1 = 0;
+                                if (dn_tendangnhap == "" || dn_matkhau == "") {
+                                    loi1++;
+                                    $('#thongbaodn').text("Hãy nhập đầy đủ thông tin");
+
+                                }
+
+                                if (loi1 != 0) {
+                                    return false;
+                                }
+                                else {
+
+                                    $.ajax({
+
+                                        type: 'GET',
+                                        url: '@Url.Action("Login", "Home")',
+
+                                        data: {
+                                            username: dn_tendangnhap,
+                                            password: dn_matkhau
+
+                                        },
+                                        success: function (ketqua) {
+
+                                            if (ketqua == "ok")
+                                                window.location.reload();
+                                            else {
+                                                $("#thongbaodn").html(ketqua);
+                                                return false;
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                            });
+
+                    });
+        </script>
+        <script>
+                    $(document).ready(function () {
+                        $('#dangnhap').click(function ()
+                        {
+
+
+                           var dn_tendangnhap = $('#dn_tendangnhap').val();
+                           var  dn_matkhau = $('#dn_matkhau').val();
+
+                           var loi1 = 0;
+                            if (dn_tendangnhap == "" || dn_matkhau == "") {
+                                loi1++;
+                                $('#thongbaodn').text("Hãy nhập đầy đủ thông tin");
+
+                            }
+
+                            if (loi1 != 0) {
+                                return false;
+                            }
+                            else {
+
+                                $.ajax({
+
+                                    type: 'GET',
+                                    url: '@Url.Action("Login", "Home")',
+
+                                    data: {
+                                        username: dn_tendangnhap,
+                                        password: dn_matkhau
+
+                                    },
+                                    success: function (ketqua) {
+
+                                        if (ketqua == "ok")
+                                            window.location.reload();
+                                        else {
+                                            $("#thongbaodn").html(ketqua);
+                                            return false;
+                                        }
+                                    }
+                                })
+                            }
+                        });
+                    });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $("#hidedangnhap").click(function () {
+                    $('#thongbaodn').html('');
+                })
+            })
+        </script>
+    </div>
+</div>
+<style>
+    .phongrass {
+        width: 100%;
+    }
+
+    .login-right input[type="submit"], .login-bottom input[type="submit"] {
+        background: #4ca811;
+        color: #fff;
+        font-size: 17px;
+        border: none;
+        width: 100%;
+        outline: none;
+        -webkit-appearance: none;
+        padding: 8px 15px 9px 15px;
+        transition: 0.5s all;
+        -webkit-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -o-transition: 0.5s all;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $("#clickdathang").click(function () {
+            $('#myModal5').modal('hide');
+            $('#myModal4').modal('show')
+        });
+    });
+</script>
+
+
+
+@if (Session["taiKhoan"] != null)
+{
+
+    <div class="modal fade" id="myModal10" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-info">
+                <div class="modal-header">
+                    <h3 style="text-align:center;">Cập nhật thông tin</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                @using (Html.BeginForm("UpdateMember", "Home", FormMethod.Post))
+                {
+                    <div class="modal-body modal-spa">
+                        <div class="login-grids">
+                            <div class="login">
+                                <div class="login-bottom_1">
+
+
+                                    <div class="sign-up">
+                                        <h4>Họ tên :</h4>
+                                        <input type="text" name="HOTEN" value="@tv.HOTEN" id="matkhau">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Địa chỉ :</h4>
+                                        <input type="text" name="DIACHI" id="matkhau" value="@tv.DIACHI">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Số điện thoại :</h4>
+                                        <input type="text" name="SDT" id="matkhau" value="@tv.SDT">
+
+                                    </div>
+
+                                    <div class="sign-up">
+                                        <h4>Email:</h4>
+                                        <input type="text" name="EMAIL" id="nhaplaimatkhau" value="@tv.EMAIL">
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Giới tính:</h4>
+
+                                        <select name="GioiTinh" class="form-control csslainghe">
+                                            @if (tv.GioiTinh == true)
+                                            {
+                                                <option value="true" selected="selected">Nam</option>
+                                                    <option value="false">Nữ</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="true" selected="selected">Nam</option>
+                                                <option value="false" selected="selected">Nữ</option>
+                                            }
+
+                                        </select>
+
+                                    </div>
+                                    <input type="hidden" name="url" value="@url" />
+
+
+
+
+
+                                </div>
+                                <div class="login-right_1">
+
+
+                                    <div class="sign-up">
+                                        <h4>Ngày sinh :</h4>
+                                        <input type="text" name="NGAYSINH" id="NGAYSINH">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Tài khoản :</h4>
+                                        <input type="text" name="TAIKHOAN" value="@tv.TAIKHOAN">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Mật khẩu mới :</h4>
+                                        <input type="password" name="MATKHAU" id="matkhau">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Nhập Lại mật khẩu :</h4>
+                                        <input type="password" id="nhaplaimatkhau">
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Mật khẩu :</h4>
+                                        <input type="password" name="MATKHAU" value="@tv.MATKHAU">
+
+                                    </div>
+
+                                    <input type="hidden" name="MALOAIND" value="@tv.MALOAIND" />
+                                    <input type="hidden" name="MAND" value="@tv.MAND" />
+                                    <input type="hidden" name="url" value="@url" />
+
+
+
+
+
+                                </div>
+
+
+
+
+                                <input type="submit" class="btn btn-success" value="Cập nhật" id="dangky">
+
+                            </div>
+                            <p style="color:red" id="thongbao"></p>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+}
+
+<style>
+    .login-right_1, .login-bottom_1 {
+        float: left;
+        width: 46%;
+        margin: 0 2%;
+    }
+
+
+        .login-right_1 input[type="text"], .login-right_1 input[type="password"], .login-bottom_1 input[type="text"], .login-bottom_1 input[type="password"] select {
+            width: 100%;
+            padding: 10px;
+            font-weight: normal;
+            background: none;
+            border: 1px solid #E6E4E4;
+            /*color: #D2D1D1;*/
+            outline: none;
+            font-size: 14px;
+            margin: 6px 0 17px 0px;
+        }
+
+            .login-right_1 input[type="text"]:hover, .login-right_1 input[type="password"]:hover, .login-bottom_1 input[type="text"]:hover, .login-bottom_1 input[type="password"], select:hover {
+                border: 1px solid #FDA30E;
+            }
+
+        .login-right_1 h4, .login-bottom_1 h4 {
+            color: #000000;
+            font-size: 14px;
+            margin: 0 0 0px 0;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .login-right_1 input[type="submit"], .login-bottom_1 input[type="submit"] select {
+            background: #4ca811;
+            color: #fff;
+            font-size: 17px;
+            border: none;
+            width: 100%;
+            outline: none;
+            -webkit-appearance: none;
+            padding: 8px 15px 9px 15px;
+            transition: 0.5s all;
+            -webkit-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -o-transition: 0.5s all;
+        }
+
+            .login-right_1 input[type="submit"]:hover, .login-bottom_1 input[type="submit"]:hover {
+                background: #FDA30E;
+            }
+
+    /*.modal-dialog {
+        width: 750px;
+        margin: 30px auto;
+    }*/
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .login-right_1 h3, .login-bottom_1 h3 {
+        color: #FDA30E;
+        font-size: 26px;
+        margin-bottom: 23px;
+        text-align: center;
+    }
+
+    .sign-in a {
+        font-size: 12px;
+        color: #A9A9A9;
+        text-decoration: none;
+    }
+
+        .sign-in a:hover {
+            color: #FDA30E;
+        }
+
+    .single-bottom input[type="checkbox"] {
+        display: none;
+    }
+
+        .single-bottom input[type="checkbox"] + label {
+            position: relative;
+            padding-left: 31px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #A9A8A8;
+            font-weight: normal;
+        }
+
+            .single-bottom input[type="checkbox"] + label span:first-child {
+                width: 14px;
+                height: 14px;
+                display: inline-block;
+                border: 2px solid #FDA30E;
+                position: absolute;
+                left: 0;
+                top: 4px;
+            }
+
+        .single-bottom input[type="checkbox"]:checked + label span:first-child:before {
+            content: "";
+            background: url(../images/mark1.png)no-repeat;
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+        }
+
+    .single-bottom {
+        margin: 14px 0 22px;
+    }
+
+    .login-grids p {
+        font-size: 14px;
+        text-align: center;
+        margin-top: 30px;
+        color: #000;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #65d31f;
+        border-color: #65d31f;
+        width: 100%;
+        font-weight: bold;
+    }
+
+    .csslainghe {
+        height: 46px;
+    }
+</style>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#NGAYSINH").datepicker();
+
+
+    })
+
+</script>

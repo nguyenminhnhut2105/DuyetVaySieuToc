@@ -1,0 +1,143 @@
+﻿@model DuyetVaySieuToc.Models.DataModel.NGUOIDUNG
+@{
+    ViewBag.Title = "Cập nhật thông tin người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/Layout/_LayoutAdmin.cshtml";
+}
+<h2>@ViewBag.Title</h2>
+<br />
+@using (Html.BeginForm())
+{
+
+    @*@Html.TextBoxFor(n => n.MABAIDANG, new { @class = "form-control", @type = "hidden" })*@
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            @Html.HiddenFor(model => model.MAND)
+            <div class="form-group">
+                <label>Họ và tên</label>
+                @Html.TextBoxFor(n => n.HOTEN, new { @class = "form-control", @required = "" })
+                @Html.ValidationMessageFor(model => model.HOTEN, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label>Tài khoản</label>
+                @Html.TextBoxFor(n => n.TAIKHOAN, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.TAIKHOAN, "", new { @class = "text-danger"})
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                @Html.EditorFor(n => n.MATKHAU, new { htmlAttributes = new { @class = "form-control" ,@type="password"} })
+                @Html.ValidationMessageFor(model => model.MATKHAU, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label>Loại người dùng</label>
+                @Html.DropDownList("MALOAIND", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MALOAIND, "", new { @class = "text-danger" })
+            </div>
+            
+        </div>
+        <div class="col-xs-12 col-md-6">
+          
+            <div class="form-group">
+                <label>Email</label>
+                @Html.TextBoxFor(n => n.EMAIL, new { @class = "form-control", @required = "" })
+                @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label>Đia chỉ</label>
+                @Html.TextBoxFor(n => n.DIACHI, new { @class = "form-control", @required = "" })
+                @Html.ValidationMessageFor(model => model.DIACHI, "", new { @class = "text-danger" })
+            </div>          
+            <div class="form-group">
+                <label>Quản trị</label>
+                @Html.DropDownList("QUANTRI", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.QUANTRI, "", new { @class = "text-danger" })
+            </div>
+           
+            <div class="form-group">
+                <label>Kích hoạt</label>
+                @Html.DropDownList("KICHHOAT", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.KICHHOAT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="pull-left">
+        <a href="@Url.Action("Member")" class="btn btn-success margin-right">
+            <span class="glyphicon glyphicon-remove"></span> Quay về
+        </a>
+    </div>
+    <div class="pull-right">
+        <button type="submit" class="btn btn-success margin-right saveluu">
+            <span class="glyphicon glyphicon-save"></span> Lưu
+        </button>
+    </div>
+}
+
+
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/toastr.js"></script>
+<script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+
+
+
+<script>
+        $(document).ready(function ()
+        {
+
+            $("#NGAYTAO").datepicker();
+            $("#NGAYSINH").datepicker();
+        })
+</script>
+<script src="~/scripts/toastr.js"></script>
+<script>
+        $('.saveluu').click(function () {
+            tendangnhap = $('#HOTEN').val();
+            matkhau = $('#TAIKHOAN').val();
+            dinhdang = /^[0-9A-Za-z]+[0-9A-Za-z_]*@@[\w\d.]+\.\w{2,4}$/;
+            sdt = /0\d{9,10}/;
+            ktdienthoai = sdt.test($('#SDT').val());
+            KTemail = dinhdang.test($('#EMAIL').val());
+            HOTEN = $('#MATKHAU').val();
+            email = $('#EMAIL').val();
+            diachi = $('#SDT').val();
+            loi = 0;
+            if (tendangnhap == "" || matkhau == "" || HOTEN == "" || email == "" || diachi == "")
+            {
+                loi++;
+                toastr.warning("Hãy nhập thông tin đầy đủ")
+                return false;
+            }
+            if (HOTEN != nhaplaimatkhau) {
+                loi++;
+                toastr.warning("Mật khẩu không trùng khớp");
+                return false;
+            }
+            if (!KTemail) {
+                toastr.warning("Email không hợp lệ !");
+                loi++;
+                return false;
+            }
+            if (!ktdienthoai)
+            {
+                toastr.warning("Số điện thoại không hợp lệ !");
+                loi++;
+                return false;
+            }
+            if (tendangnhap.length < 6) {
+                loi++;
+                toastr.warning("Họ tên phải lớn hơn 6 ký tự");
+                return false;
+            }
+            if (loi != 0)
+            {
+                return false;
+            }
+        });
+</script>
+
+
+

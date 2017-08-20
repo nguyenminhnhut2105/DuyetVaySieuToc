@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Quản trị";
+    Layout = "~/Areas/Admin/Views/Shared/Layout/_LayoutAdmin.cshtml";
+}
+<h2><b style="color:cornflowerblue;">Chào mừng bạn đến trang quản trị website</b></h2>
+<br />
+<div class="container-fluid">
+    <div class="pull-left">
+        <a href="@Url.Action("Creates","QuanLyKhachHangVay")" class="btn btn-info pull-right"><span class="glyphicon glyphicon-plus"></span><span class="hidden-xs"> Thêm khách hàng vay</span></a>
+    </div>
+</div>
+<br />
+
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+
+            <div class="inner">
+                <h3>@ViewBag.Chuaduyet</h3>
+                <p>Chưa duyệt</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            <a href="~/Admin/QuanLyKhachHangVay/Chuaduyet" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+
+
+        </div>
+    </div>
+
+<div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-blue-active">
+        <div class="inner">
+            <h3>@ViewBag.Dachuyen</h3>
+            <p>Đã chuyển</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="~/Admin/QuanLyKhachHangVay/Dachuyen" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+
+
+<div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-aqua">
+        <div class="inner">
+            <h3>@ViewBag.Reject<sup style="font-size: 20px"></sup></h3>
+            <p>Reject</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="~/Admin/QuanLyKhachHangVay/Reject" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+<div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-red">
+        <div class="inner">
+            <h3>@ViewBag.Nocontact<sup style="font-size: 20px"></sup></h3>
+            <p>No contact</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="~/Admin/QuanLyKhachHangVay/Nocontact" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+<div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-green">
+        <div class="inner">
+            <h3>@ViewBag.Daduyet<sup style="font-size: 20px"></sup></h3>
+            <p>Finish</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="~/Admin/QuanLyKhachHangVay/Finish" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>

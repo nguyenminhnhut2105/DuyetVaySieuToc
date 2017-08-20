@@ -1,0 +1,168 @@
+﻿@model DuyetVaySieuToc.Models.DataModel.NGUOIDUNGVAY
+@{
+    ViewBag.Title = "Vay tiêu dùng - Trả góp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="alert alert-success">
+    <h2>HỖ TRỢ VAY LÊN ĐẾN 70 TRIỆU ĐỒNG</h2>
+        <h3>Chúng tôi cam kết bảo mật thông tin khách hàng tuyệt đối</h3>
+    </div>
+    <style>
+        .alert-success {
+            color: #468847;
+            background-color: #089b7e;
+            border-color: #d6e9c6;
+        }
+        h2 {
+            color: #fffff0;
+            padding: 15px 0 0;
+            text-align: center;
+            font-size: 25px;
+        }
+        h3 {
+            color: #fffff0;
+            padding: 15px 0 0;
+            text-align: center;
+            font-size: 17px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background: #089b7e;
+            border: none;
+            padding: 12px 0;
+            color: #fff;
+            font-size: 17px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            -webkit-transition: 0.5s all;
+            Safaritransition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -ms-transition: 0.5 all;
+            -o-transition: 0.5s all;
+            font-family: 'Open Sans', sans-serif;
+            text-transform: capitalize;
+        }
+    </style>
+    <div class="w3layouts">
+        <div class="photos-upload-view">
+            <form action="#" method="POST">                
+                    <div class="agileinfo-row">
+                    <div class="ferry ferry-from col-md-11">
+                        <label>Họ và tên</label>
+                        <input type="text" placeholder="Họ và tên" name="HOTEN" minlength="3" maxlength="28" required="" >
+                    </div>
+                </div>
+                    <div class="ferry ferry-from col-md-6">
+                        <label>Điện thoại</label>                  
+                        <input type="text"  placeholder="Số điện thoại" minlength="8"  maxlength="11" name="SDT" pattern="[0-9]*" required="" >
+                    </div>
+                    <div class="ferry ferry-from col-md-6">
+                        <label>Chứng minh</label>                       
+                        <input type="text" name="CMND"  placeholder="Số chứng minh" minlength="8"  maxlength="15"  pattern="[0-9]*" required="" >
+                    </div>
+
+
+                    <div class="ferry ferry-from col-md-6">
+                        <label>Tỉnh</label>
+                        <input type="text" placeholder="Tên tỉnh" name="DIACHI" minlength="5" maxlength="15" required="">
+                       
+                    </div>
+                    <div class="ferry ferry-from col-md-6">
+                        <label>Tôi có</label>
+                        <div class="form_box">
+                            <div class="select-block1">
+                                <select name="VAYTHEO" required="">
+                                    <option value="" hidden="hidden" disabled="" selected="selected">-- Chọn --</option>
+                                    <option value="Bảo hiểm nhân thọ">Bảo hiểm nhân thọ</option>
+                                    <option value="Bảng lương">Bảng lương</option>
+                                    <option value="Cavet xe">Cavet xe</option>
+                                    <option value="Hóa đơn điện">Hóa đơn điện</option>
+                                    <option value="Hợp đồng tín dụng">Hợp đồng tín dụng</option>
+                                    <option value="Sao kê ngân hàng">Sao kê ngân hàng</option>
+                                    <option value="Sim viettel">Sim viettel</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                <div class="clear"></div>
+                <br />
+                <div class="ferry ferry-from col-md-1">                   
+                </div>
+                <div class="ferry ferry-from col-md-10">
+                    <input type="submit" name="submit" value="ĐĂNG KÝ" id="dangky">
+                    <br />
+                   
+                </div>
+                
+                <div class="ferry ferry-from col-md-1">                                 
+                </div>
+                
+                <br />
+               
+            </form>
+           
+        </div> 
+       
+    </div>
+    <p>Địa chỉ: 90C Tầm Vu, P.Hưng Lợi, Q.Ninh Kiều, TPCT</p>
+    
+}
+
+
+<script src="~/scripts/toastr.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dangky').click(function () {
+            var HOTEN = $('#HOTEN').val();
+            var SDT = $('#SDT').val();
+            var CMND = $('#CMND').val();
+            var DIACHI = $('#DIACHI').val();
+            var VAYTHEO = $('#VAYTHEO').val();
+            loi = 0;
+            if (HOTEN == "" || SDT == "" || CMND == "" || DIACHI == "" || HOTEN == "" || VAYTHEO == "") {
+                loi++;
+                toastr.error("Vui lòng nhập thông tin đầy đủ !")
+            }
+            if (SDT.length < 8) {
+                loiup++;
+                toastr.warning("Số điện thoại phải lớn hơn 8 ký tự");
+            }
+            if (SDT.length > 10) {
+                loiup++;
+                toastr.warning("Số điện thoại phải nhỏ hơn 10 ký tự");
+            }            
+            if (loi != 0) {
+                return false;
+            }
+        });
+    });
+    $(function () {
+        toastr.options =
+            {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "800",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+
+            };
+    });
+</script>
+
+

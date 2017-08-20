@@ -1,0 +1,103 @@
+﻿@model DuyetVaySieuToc.Models.DataModel.NGUOIDUNGVAY
+@{
+    ViewBag.Title = "Thêm mới khách hàng vay";
+    Layout = "~/Areas/Admin/Views/Shared/Layout/_LayoutAdmin.cshtml";
+}
+<h2>Thêm mới khách hàng vay</h2>
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" placeholder="Họ và tên" name="HOTEN" minlength="3" maxlength="28"  class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="text" placeholder="Số điện thoại" minlength="8" maxlength="11" name="SDT" pattern="[0-9]*" required="" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Chứng minh nhân dân</label>
+                <input type="text" name="CMND" placeholder="Số chứng minh" minlength="8" maxlength="15" pattern="[0-9]*" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <input type="text" placeholder="Tên tỉnh" name="DIACHI" minlength="5" maxlength="15"  class="form-control">
+                @*<select id="ddtinh" name="DIACHI" class="form-control">
+                    <option value="" hidden="hidden" disabled="" selected="selected">Chọn địa chỉ</option>
+                    <option value="An Giang">An Giang</option>
+                    <option value="Bạc Liêu">Bạc Liêu </option>
+                    <option value="Bến Tre">Bến Tre</option>
+                    <option value="Cà Mau">Cà Mau</option>
+                    <option value="Cần Thơ">Cần Thơ</option>
+                    <option value="Đồng Tháp">Đồng Tháp</option>
+                    <option value="Hậu Giang">Hậu Giang</option>
+                    <option value="Kiêng Giang">Kiên Giang</option>
+                    <option value="Sóc trăng">Sóc Trăng </option>
+                    <option value="Tiền giang">Tiền Giang</option>
+                    <option value="Trà Vinh">Trà Vinh </option>
+                    <option value="Vĩnh Long">Vĩnh Long</option>                    
+                </select>*@
+            </div>
+            <div class="form-group">
+                <label>Tôi có</label>
+                <select id="ddtinh" name="VAYTHEO" class="form-control">
+                    <option value="" hidden="hidden" disabled="" selected="selected">Chọn mức vay</option>
+                    <option value="Bảo hiểm nhân thọ">Bảo hiểm nhân thọ</option>
+                    <option value="Bảng lương">Bảng lương</option>
+                    <option value="Cavet xe">Cavet xe</option>
+                    <option value="Hóa đơn điện">Hóa đơn điện</option>
+                    <option value="Hợp đồng tín dụng">Hợp đồng tín dụng</option>
+                    <option value="Sao kê ngân hàng">Sao kê ngân hàng</option>                                      
+                    <option value="Sim viettel">Sim viettel</option>
+                </select>
+            </div>
+        </div>
+        <br />
+      
+    </div>
+    <div class="pull-left">
+        <a href="@Url.Action("Index")" class="btn btn-warning margin-right">
+            <span class="glyphicon glyphicon-remove"></span> Quay về
+        </a>
+    </div>
+    <div class="pull-right">
+        <input class="btn btn-success" type="submit" id="pwCreate" value="Thêm khách hàng" />
+    </div>
+    <script>
+                $(document).ready(function () {
+                    $('#pwCreate').click(function () {
+                        var hoten = $('#HOTEN').val();
+                        var sdt = $('#SDT').val();
+                        var cmnd = $('#CMND').val();
+                        var diachi  = $('#DIACHI').val();
+                        var vaytheo = $('#VAYTHEO').val();
+                        loiup = 0;
+
+                        if (hoten.length == "" && sdt.length == "" && cmnd.length == "" && diachi.length == "" && vaytheo.length == "")
+                        {
+                            loiup++;
+                            toastr.warning("Vui lòng điền thông tin đầy đủ");
+                        }
+                        if (SDT.length < 8) {
+                            loiup++;
+                            toastr.warning("Số điện thoại phải lớn hơn 8 ký tự");
+                        }
+                        if (SDT.length > 10) {
+                            loiup++;
+                            toastr.warning("Số điện thoại phải nhỏ hơn 10 ký tự");
+                        }
+                        if (loi != 0) {
+                            return false;
+                        }
+
+                  
+                    });
+                });
+    </script>
+}

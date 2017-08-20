@@ -1,0 +1,43 @@
+﻿
+<ul class="sidebar-menu">
+    <li class="header">Quản lý hệ thống</li>
+    <li class="treeview">
+        <a href="~/Admin/Home">
+            <i class="fa fa-home"></i>
+            <span>Trang chủ</span>
+
+        </a>
+
+    </li>
+    <li class="treeview">
+        <a href="@Url.Action("Index","QuanLyKhachHangVay")">
+            <i class="fa fa-edit"></i> <span>Khách hàng vay</span>            
+        </a>
+    </li>
+    @*<li class="treeview">
+        <a href="#">
+            <i class="fa fa-wrench"></i> <span>Quyền</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Member","QuanLyNghiepVu")"><i class="fa fa-circle-o"></i>Nghiệp vụ</a></li>
+            <li><a href="@Url.Action("Member","QuanLyNguoiDung")"><i class="fa fa-circle-o"></i>Cấp quyền</a></li>         
+        </ul>
+    </li>*@
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-gears"></i> <span>Hệ thống</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Member","QuanLyNguoiDung")"><i class="fa fa-circle-o"></i>Người dùng</a></li>
+            @*<li><a href="@Url.Action("Member","QuanLyNguoiDung")"><i class="fa fa-circle-o"></i>Cấp quyền</a></li>*@
+
+        </ul>
+    </li>
+
+</ul>

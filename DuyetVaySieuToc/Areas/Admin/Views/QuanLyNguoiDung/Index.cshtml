@@ -1,0 +1,164 @@
+﻿@using DuyetVaySieuToc.Models.DataModel
+@model IEnumerable<LOAINGUOIDUNG>
+@{
+    ViewBag.Title = "Quản lý người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/Layout/_LayoutAdmin.cshtml";
+    int stt = 0;
+
+}
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="editlsanphamm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Sửa loại người dùng</h4>
+                </div>
+                @using (Html.BeginForm("Create_EditCategoryUser", "QuanLyNguoiDung", FormMethod.Get))
+            {
+                    <div class="modal-body">
+                        <div class="add-review">
+                            <p>Tên Loại</p>
+                            <input type="hidden" id="idloainguoidung" name="MALOAIND" class="form-control" />
+                            <input type="text" id="tenloainguoidung" name="TENLOAIND" class="form-control" required="" />
+                            <br />
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary them1cai" style="background-color:#FDA30E">Xóa</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <h2>Loại người dùng</h2>
+
+        <div class="pull-left">
+            <p style="margin-bottom:1px">
+                <input type="button" class="btn btn-success" aria-hidden="true" id="themloaisp" data-toggle="modal"
+                       data-target="#editlsanphamm"
+                       value="Tạo mới" />
+            </p>
+        </div>
+    </div>
+
+
+
+
+    <br />
+    <div class="row">
+        <table id="dsdinhdang" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        STT
+                    </th>
+                    <th>
+                        Tên Loại
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @{ stt++;}
+                            @stt
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TENLOAIND)
+                        </td>
+
+
+                        <td>
+                            <span aria-hidden="true" id="editloaispham" data-toggle="modal" style="cursor:pointer;color:blue"
+                                  data-target="#editlsanphamm"
+                                  data-id="@item.MALOAIND"
+                                  data-tennguoidung="@item.TENLOAIND"
+                                  class="glyphicon glyphicon-edit"
+                                  title='Cập nhật'></span>
+
+                            <span aria-hidden="true" id="xoaloaispclick" data-toggle="modal" style="cursor:pointer;color:blue"
+                                  data-target="#xoaloaisp"
+                                  data-id="@item.MALOAIND"
+                                  class="glyphicon glyphicon-remove"></span>
+
+                        </td>
+                    </tr>
+                                }
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).on("click", "#editloaispham", function () {
+        var loaisp = $(this).data('id');
+        var tenloaind = $(this).data('tennguoidung');
+        $(".modal-body #idloainguoidung").val(loaisp);
+        $(".modal-body #tenloainguoidung").val(tenloaind);
+        $(".modal-header #myModalLabel").html("Sữa sản phẩm");
+        $(".modal-footer .them1cai").html("Cập nhập");
+        //tenloainguoidung
+    });
+</script>
+
+
+<script>
+    $(document).on("click", "#themloaisp", function ()
+    {
+        $("#tenloainguoidung").val('');
+        var loaisp = $(this).data('id');
+        var TENLOAIND = $(this).data('tennguoidung');
+        $(".modal-body #idloainguoidung").val("0");
+        $(".modal-header #myModalLabel").html("Thêm loại người dùng");
+        $(".modal-footer .them1cai").html("Thêm");
+        //themsanpham
+    });
+</script>
+
+<script>
+    $(document).on("click", "#xoaloaispclick", function () {
+        var loaisp = $(this).data('id');
+        $(".modal-body #idloainguoidungdel").val(loaisp);
+
+        //tenloainguoidung
+    });
+</script>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="xoaloaisp">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelaa">Xóa loại người dùng</h4>
+            </div>
+            @using (Html.BeginForm("DeleteCategoryUser", "QuanLyNguoiDung", FormMethod.Get))
+            {
+                <div class="modal-body">
+                    <div class="add-review">
+                        <p>Bạn có chắc chắn muốn xóa sản phẩm</p>
+                        <input type="hidden" id="idloainguoidungdel" name="idloainguoidung" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#FDA30E">Xóa</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

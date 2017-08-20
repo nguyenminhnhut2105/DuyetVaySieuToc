@@ -1,0 +1,117 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>    
+    <title>Vay tiêu dùng - Trả góp</title>
+    <link rel="icon" href="~/assets/images/check.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="~/assets/images/check.png" type="image/x-icon" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Online Joining form Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+
+    <!-- custom css file -->
+    <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <!-- //custom css file -->
+    <!-- google fonts -->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300italic,300,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <!-- //google fonts -->
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @*<div class="col-md-2">
+                    <img src="~/assets/images/logofe.jpg" width="50" height="50" />
+                </div>*@
+                <div class="col-md-12">
+                    @Html.ActionLink("VAYTUCHON.COM", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+            @*<div class="navbar-header2">
+                @Html.ActionLink("HOTLINE || 0931 094 909 - 0932 989 105", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>*@
+        </div>
+    </div>
+    <br />
+   
+    <br />
+    <div class="agile-its">
+
+        @RenderBody()     
+        
+    </div>
+
+    <!--Start of Tawk.to Script-->
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/59733dc30d1bb37f1f7a55f3/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+
+    <!--End of Tawk.to Script-->
+    <!--End of Tawk.to Script-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+  
+    <style>
+        .footer p {
+            text-align: center;
+            color: #000;
+            margin-bottom: 4px;
+            font-size: 17px;
+            letter-spacing: 1px;
+        }
+
+        .navbar-inverse {
+            background-color: #089b7e;
+            border-color: #a7c3b5;
+        }
+
+            .navbar-inverse .navbar-brand {
+                color: #ffffff;
+            }
+
+        .navbar-header2 {
+            float: right;
+        }
+
+        .navbar > .container .navbar-brand {
+            margin-right: -65px;
+        }
+
+        img {
+            max-width: 200%;
+        }
+        .w3layouts p {
+            font-size: 13px;
+            line-height: 20px;
+            color: #000;
+            margin-bottom: 10px;
+        }
+        .agile-its p {
+            text-align: center;
+            margin: 0em 0;
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #143033;
+        }
+    </style>
+</body>
+</html>
